@@ -1,13 +1,15 @@
 
 
 const mongoose=require('mongoose')
+ const dotenv =require('dotenv')
+ const cors=require('cors')
 
-
+  dotenv.config()
 
 let database;
    async function getDatabase(){
     
-  await mongoose.connect('mongodb+srv://xbi4gpt:irc26977@cluster0.dacxa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0').then(()=>{
+  await mongoose.connect(process.env.MONGODB_URI).then(()=>{
     console.log("DATA BASE CONNECTED")
     })
     .catch((err)=>{

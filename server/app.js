@@ -2,14 +2,16 @@ const express=require('express')
 const app=express()
 const bodyparser=require('body-parser')
 const exhbs=require('express-handlebars')
-const dbo= require('./db')
-const msgmodel=require('./models/msgmodel')
+const dbo= require('../db')
+const dotenv=require('dotenv')
+const msgmodel=require('../models/msgmodel')
+     dotenv.config()
+const port=process.env.PORT||8080
      dbo.getDatabase()
 
-// const objectID=dbo.objectID;
 const path=require('path')
 
-app.engine('hbs',exhbs.engine({layoutsDir:'views/',defaultLayout:'main',extname:'hbs',runtimeOptions:{
+app.engine('hbs',exhbs.engine({layoutsDir:'views',defaultLayout:'main',extname:'hbs',runtimeOptions:{
     allowProtoPropertiesByDefault:true,
     allowProtoMethodsByDefault:true
 }}));
@@ -17,8 +19,7 @@ app.set('view engine','hbs');
 
 app.set('views','views')
 app.use(bodyparser.urlencoded({extended:true}))
-app.use(express.static(path.join(__dirname,'public')))
-
+app.use(express.static(path.join(__dirname, '../public')))
 
 
 
@@ -82,6 +83,6 @@ app.use((req,res)=>{
 })
 
 
-app.listen(3000,()=>{
+app.listen(port,()=>{
     console.log("site is running 3000")
 })
